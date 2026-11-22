@@ -3,3 +3,4 @@ dist/
 .angular/
 vercel-dist/
 .vercel/
+slides/*.pptx
