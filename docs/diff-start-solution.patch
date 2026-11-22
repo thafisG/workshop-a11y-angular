@@ -1,0 +1,515 @@
+diff -ruN '--exclude=README.md' start/package-lock.json solution/package-lock.json
+--- start/package-lock.json	2026-11-21 22:25:26.710745912 -0300
++++ solution/package-lock.json	2026-11-21 22:32:59.389002076 -0300
+@@ -1,11 +1,11 @@
+ {
+-  "name": "loja-acessivel",
++  "name": "loja-acessivel-solution",
+   "version": "0.0.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+-      "name": "loja-acessivel",
++      "name": "loja-acessivel-solution",
+       "version": "0.0.0",
+       "dependencies": {
+         "@angular/common": "^22.3.0",
+diff -ruN '--exclude=README.md' start/package.json solution/package.json
+--- start/package.json	2026-11-21 22:24:57.636352197 -0300
++++ solution/package.json	2026-11-21 22:27:09.111754687 -0300
+@@ -1,5 +1,5 @@
+ {
+-  "name": "loja-acessivel",
++  "name": "loja-acessivel-solution",
+   "version": "0.0.0",
+   "scripts": {
+     "ng": "ng",
+diff -ruN '--exclude=README.md' start/src/app/app.css solution/src/app/app.css
+--- start/src/app/app.css	2026-11-21 22:27:01.394668939 -0300
++++ solution/src/app/app.css	2026-11-21 22:28:08.247264230 -0300
+@@ -9,7 +9,6 @@
+   display: inline-flex; align-items: center; gap: 8px;
+   background: transparent; border: 1px solid var(--border); border-radius: 999px;
+   padding: 8px 14px; color: var(--text); cursor: pointer; font: inherit;
+-  outline: none;
+ }
+ .cart-button:hover { background: #f0ebe3; }
+ .cart-count { background: var(--accent); color: #fff; border-radius: 999px; min-width: 24px; padding: 0 7px; font-weight: 700; font-size: .85rem; text-align: center; }
+@@ -31,8 +30,8 @@
+ .price { font-weight: 800; font-size: 1.1rem; }
+ 
+ .fav {
+-  position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%;
+-  background: rgba(255, 255, 255, .92); display: grid; place-items: center; cursor: pointer; color: #6b6470;
++  position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border-radius: 50%; border: 0;
++  background: rgba(255, 255, 255, .92); display: grid; place-items: center; cursor: pointer; color: #6b6470; padding: 0;
+ }
+ .fav svg { fill: none; }
+ .fav.active { color: var(--accent); }
+@@ -42,7 +41,6 @@
+ .btn-icon {
+   display: inline-grid; place-items: center; width: 42px; height: 42px; border-radius: 10px;
+   border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer;
+-  outline: none;
+ }
+ .btn-icon:hover { background: #f0ebe3; }
+ .btn-icon.add { background: var(--primary); border-color: var(--primary); color: #fff; }
+@@ -50,7 +48,7 @@
+ 
+ .btn-primary {
+   background: var(--primary); color: #fff; border: 0; border-radius: 10px; padding: 12px 18px;
+-  font: inherit; font-weight: 700; cursor: pointer; outline: none;
++  font: inherit; font-weight: 700; cursor: pointer;
+ }
+ .btn-primary:hover { background: var(--primary-dark); }
+ 
+@@ -58,16 +56,18 @@
+ .site-footer { border-top: 1px solid var(--border); padding: 22px 0; color: var(--muted); font-size: .9rem; }
+ 
+ /* Toast */
++.toast-region { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; }
+ .toast {
+-  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30;
+   background: #1d1b20; color: #fff; padding: 12px 20px; border-radius: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+ }
+ 
+-/* Modal */
+-.overlay { position: fixed; inset: 0; background: rgba(20, 18, 24, .55); display: grid; place-items: center; padding: 16px; z-index: 20; }
+-.modal { background: var(--surface); border-radius: 16px; width: min(520px, 100%); max-height: 92vh; overflow: auto; padding: 22px; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); }
++/* Modal (elemento <dialog> nativo) */
++.modal { border: 0; padding: 0; background: var(--surface); border-radius: 16px; width: min(520px, calc(100% - 32px)); max-height: 92vh; overflow: auto; box-shadow: 0 20px 60px rgba(0, 0, 0, .35); color: var(--text); }
++.modal::backdrop { background: rgba(20, 18, 24, .55); }
++.modal-content { padding: 22px; }
+ .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+ .modal-header h2 { margin: 0; font-size: 1.3rem; }
++.modal-header h2:focus { outline: none; }
+ 
+ .empty { color: var(--muted); }
+ .cart-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+@@ -81,11 +81,18 @@
+ .checkout h3 { margin: 0; font-size: 1.05rem; }
+ .field { display: flex; flex-direction: column; gap: 4px; }
+ .field-label { font-weight: 600; font-size: .92rem; }
+-.field input { font: inherit; padding: 10px 12px; border: 1px solid #8a8490; border-radius: 8px; outline: none; }
++.field input { font: inherit; padding: 10px 12px; border: 1px solid #8a8490; border-radius: 8px; }
+ .field input.invalid { border-color: var(--danger); }
+ .error { color: var(--danger); font-size: .88rem; }
+-.form-message { color: var(--danger); font-weight: 600; }
++.form-message { font-weight: 600; margin-bottom: 8px; color: var(--muted); }
++.form-message.is-error { color: var(--danger); }
++.form-message:empty { display: none; }
+ 
+ .confirmation { text-align: center; padding: 18px 0 6px; }
++.confirmation h3:focus { outline: none; }
+ .confirmation h3 { color: var(--success); margin: 0 0 6px; font-size: 1.3rem; }
+ .confirmation p { color: var(--muted); }
++
++/* Foco sempre visível para quem navega pelo teclado */
++:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
++.btn-icon.add:focus-visible, .btn-primary:focus-visible { outline-color: #0b57d0; box-shadow: 0 0 0 2px #fff; }
+diff -ruN '--exclude=README.md' start/src/app/app.html solution/src/app/app.html
+--- start/src/app/app.html	2026-11-21 22:27:47.534431677 -0300
++++ solution/src/app/app.html	2026-11-21 22:28:08.219959467 -0300
+@@ -1,13 +1,13 @@
+ <header class="site-header">
+   <div class="container header-inner">
+     <span class="brand">Loja Recife</span>
+-    <button class="cart-button" (click)="openModal()">
+-      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
++    <button class="cart-button" type="button" aria-haspopup="dialog" [attr.aria-label]="cartLabel()" (click)="openModal()">
++      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+         <circle cx="9" cy="20" r="1.5" />
+         <circle cx="18" cy="20" r="1.5" />
+         <path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6" />
+       </svg>
+-      <span class="cart-count">{{ cartCount() }}</span>
++      <span class="cart-count" aria-hidden="true">{{ cartCount() }}</span>
+     </button>
+   </div>
+ </header>
+@@ -24,20 +24,27 @@
+       @for (p of products; track p.id) {
+         <li class="card">
+           <div class="card-media">
+-            <img [src]="p.image" [attr.alt]="p.alt" width="400" height="300" />
+-            <div class="fav" [class.active]="isFavorite(p.id)" (click)="toggleFavorite(p.id)">
+-              <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
++            <img [src]="p.image" [alt]="p.alt" width="400" height="300" />
++            <button
++              type="button"
++              class="fav"
++              [class.active]="isFavorite(p.id)"
++              [attr.aria-pressed]="isFavorite(p.id)"
++              [attr.aria-label]="'Favoritar ' + p.name"
++              (click)="toggleFavorite(p.id)"
++            >
++              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                 <path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5 6.5 5c2 0 3.5 1.1 5.5 3 2-1.9 3.5-3 5.5-3C21 5 22.8 8.6 21.5 11.8 19.5 16.4 12 21 12 21z" />
+               </svg>
+-            </div>
++            </button>
+           </div>
+           <div class="card-body">
+             <h3>{{ p.name }}</h3>
+             <p class="desc">{{ p.description }}</p>
+             <div class="card-footer">
+               <span class="price">{{ p.price | currency: 'BRL' }}</span>
+-              <button class="btn-icon add" (click)="addToCart(p)">
+-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
++              <button type="button" class="btn-icon add" [attr.aria-label]="'Adicionar ' + p.name + ' ao carrinho'" (click)="addToCart(p)">
++                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                   <circle cx="9" cy="20" r="1.5" />
+                   <circle cx="18" cy="20" r="1.5" />
+                   <path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6" />
+@@ -56,76 +63,109 @@
+   <div class="container">Loja fictícia criada para o workshop de acessibilidade — DevFest Recife 2026.</div>
+ </footer>
+ 
+-@if (toast()) {
+-  <div class="toast">{{ toast() }}</div>
+-}
+-
+-@if (modalOpen()) {
+-  <div class="overlay" (click)="closeModal()">
+-    <div class="modal" (click)="$event.stopPropagation()">
+-      <div class="modal-header">
+-        <h2>Seu carrinho</h2>
+-        <button class="btn-icon" (click)="closeModal()">
+-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+-            <path d="M5 5l14 14M19 5L5 19" />
+-          </svg>
+-        </button>
+-      </div>
++<!-- A região existe desde o início; só o texto muda. É isso que faz o leitor de tela anunciar. -->
++<div class="toast-region" role="status" aria-live="polite" aria-atomic="true">
++  @if (toast()) {
++    <div class="toast">{{ toast() }}</div>
++  }
++</div>
++
++<dialog #dialog class="modal" aria-labelledby="modal-title" (close)="onDialogClosed()" (click)="onDialogClick($event)">
++  <div class="modal-content">
++    <div class="modal-header">
++      <h2 id="modal-title" tabindex="-1">Seu carrinho</h2>
++      <button type="button" class="btn-icon" aria-label="Fechar carrinho" (click)="closeModal()">
++        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
++          <path d="M5 5l14 14M19 5L5 19" />
++        </svg>
++      </button>
++    </div>
+ 
+-      @if (formMessage()) {
+-        <div class="form-message">{{ formMessage() }}</div>
+-      }
++    <div class="form-message" [class.is-error]="formMessageIsError()" role="status">{{ formMessage() }}</div>
+ 
+-      @if (orderNumber() !== null) {
+-        <div class="confirmation">
+-          <h3>Pedido #{{ orderNumber() }} confirmado!</h3>
+-          <p>Enviamos os detalhes da compra para o seu e-mail.</p>
+-          <button class="btn-primary" (click)="closeModal()">Continuar comprando</button>
++    @if (orderNumber() !== null) {
++      <div class="confirmation">
++        <h3 id="confirmacao-titulo" tabindex="-1">Pedido #{{ orderNumber() }} confirmado!</h3>
++        <p>Enviamos os detalhes da compra para o seu e-mail.</p>
++        <button type="button" class="btn-primary" (click)="closeModal()">Continuar comprando</button>
++      </div>
++    } @else if (cart().length === 0) {
++      <p class="empty">Seu carrinho está vazio.</p>
++    } @else {
++      <ul class="cart-list">
++        @for (item of cart(); track item.product.id) {
++          <li class="cart-item">
++            <img [src]="item.product.image" alt="" width="56" height="42" />
++            <div class="cart-item-info">
++              <strong>{{ item.product.name }}</strong>
++              <span>{{ item.quantity }} × {{ item.product.price | currency: 'BRL' }}</span>
++            </div>
++            <button type="button" class="btn-icon" [attr.aria-label]="'Remover ' + item.product.name + ' do carrinho'" (click)="removeFromCart(item.product)">
++              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
++                <path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" />
++              </svg>
++            </button>
++          </li>
++        }
++      </ul>
++      <p class="total">Total: <strong>{{ cartTotal() | currency: 'BRL' }}</strong></p>
++
++      <form class="checkout" (submit)="submit($event)" novalidate>
++        <h3>Dados para entrega</h3>
++
++        <div class="field">
++          <label for="campo-nome" class="field-label">Nome completo</label>
++          <input
++            id="campo-nome"
++            type="text"
++            autocomplete="name"
++            placeholder="Ex.: Maria Silva"
++            required
++            [value]="nome()"
++            (input)="setField('nome', $event)"
++            [class.invalid]="errors().nome"
++            [attr.aria-invalid]="errors().nome ? 'true' : null"
++            [attr.aria-describedby]="errors().nome ? 'erro-nome' : null"
++          />
++          @if (errors().nome) { <span id="erro-nome" class="error">{{ errors().nome }}</span> }
+         </div>
+-      } @else if (cart().length === 0) {
+-        <p class="empty">Seu carrinho está vazio.</p>
+-      } @else {
+-        <ul class="cart-list">
+-          @for (item of cart(); track item.product.id) {
+-            <li class="cart-item">
+-              <img [src]="item.product.image" [attr.alt]="item.product.alt" width="56" height="42" />
+-              <div class="cart-item-info">
+-                <strong>{{ item.product.name }}</strong>
+-                <span>{{ item.quantity }} × {{ item.product.price | currency: 'BRL' }}</span>
+-              </div>
+-              <button class="btn-icon" (click)="removeFromCart(item.product)">
+-                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+-                  <path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" />
+-                </svg>
+-              </button>
+-            </li>
+-          }
+-        </ul>
+-        <p class="total">Total: <strong>{{ cartTotal() | currency: 'BRL' }}</strong></p>
+-
+-        <form class="checkout" (submit)="submit($event)" novalidate>
+-          <h3>Dados para entrega</h3>
+-
+-          <div class="field">
+-            <span class="field-label">Nome completo</span>
+-            <input type="text" placeholder="Ex.: Maria Silva" [value]="nome()" (input)="setField('nome', $event)" [class.invalid]="errors().nome" />
+-            @if (errors().nome) { <span class="error">{{ errors().nome }}</span> }
+-          </div>
+ 
+-          <div class="field">
+-            <span class="field-label">E-mail</span>
+-            <input type="text" [value]="email()" (input)="setField('email', $event)" [class.invalid]="errors().email" />
+-            @if (errors().email) { <span class="error">{{ errors().email }}</span> }
+-          </div>
++        <div class="field">
++          <label for="campo-email" class="field-label">E-mail</label>
++          <input
++            id="campo-email"
++            type="email"
++            autocomplete="email"
++            required
++            [value]="email()"
++            (input)="setField('email', $event)"
++            [class.invalid]="errors().email"
++            [attr.aria-invalid]="errors().email ? 'true' : null"
++            [attr.aria-describedby]="errors().email ? 'erro-email' : null"
++          />
++          @if (errors().email) { <span id="erro-email" class="error">{{ errors().email }}</span> }
++        </div>
+ 
+-          <div class="field">
+-            <input type="text" placeholder="CEP" [value]="cep()" (input)="setField('cep', $event)" [class.invalid]="errors().cep" />
+-            @if (errors().cep) { <span class="error">{{ errors().cep }}</span> }
+-          </div>
++        <div class="field">
++          <label for="campo-cep" class="field-label">CEP</label>
++          <input
++            id="campo-cep"
++            type="text"
++            inputmode="numeric"
++            autocomplete="postal-code"
++            placeholder="00000-000"
++            required
++            [value]="cep()"
++            (input)="setField('cep', $event)"
++            [class.invalid]="errors().cep"
++            [attr.aria-invalid]="errors().cep ? 'true' : null"
++            [attr.aria-describedby]="errors().cep ? 'erro-cep' : null"
++          />
++          @if (errors().cep) { <span id="erro-cep" class="error">{{ errors().cep }}</span> }
++        </div>
+ 
+-          <button type="submit" class="btn-primary">Finalizar compra</button>
+-        </form>
+-      }
+-    </div>
++        <button type="submit" class="btn-primary">Finalizar compra</button>
++      </form>
++    }
+   </div>
+-}
++</dialog>
+diff -ruN '--exclude=README.md' start/src/app/app.ts solution/src/app/app.ts
+--- start/src/app/app.ts	2026-11-21 22:26:35.963062062 -0300
++++ solution/src/app/app.ts	2026-11-21 22:27:47.541538555 -0300
+@@ -1,5 +1,14 @@
+ import { CurrencyPipe } from '@angular/common';
+-import { Component, computed, signal } from '@angular/core';
++import {
++  afterNextRender,
++  Component,
++  computed,
++  ElementRef,
++  inject,
++  Injector,
++  signal,
++  viewChild,
++} from '@angular/core';
+ 
+ interface Product {
+   id: number;
+@@ -7,7 +16,7 @@
+   description: string;
+   price: number;
+   image: string;
+-  alt?: string;
++  alt: string;
+ }
+ 
+ interface CartItem {
+@@ -24,6 +33,10 @@
+   styleUrl: './app.css',
+ })
+ export class App {
++  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
++  private readonly injector = inject(Injector);
++  private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('dialog');
++
+   protected readonly products: Product[] = [
+     {
+       id: 1,
+@@ -31,6 +44,7 @@
+       description: 'Cerâmica de 300 ml, vai ao micro-ondas.',
+       price: 39.9,
+       image: 'img/caneca.svg',
++      alt: 'Caneca branca de cerâmica com listras onduladas em azul',
+     },
+     {
+       id: 2,
+@@ -38,7 +52,7 @@
+       description: 'Bluetooth com até 30 horas de bateria.',
+       price: 189,
+       image: 'img/fone.svg',
+-      alt: 'IMG_0231.png',
++      alt: 'Fone de ouvido sem fio preto, com arco ajustável e almofadas grandes',
+     },
+     {
+       id: 3,
+@@ -46,7 +60,7 @@
+       description: 'Resistente à água, com compartimento para notebook.',
+       price: 249.9,
+       image: 'img/mochila.svg',
+-      alt: 'imagem',
++      alt: 'Mochila verde com bolso frontal e fecho amarelo',
+     },
+     {
+       id: 4,
+@@ -60,7 +74,6 @@
+ 
+   protected readonly cart = signal<CartItem[]>([]);
+   protected readonly favorites = signal<ReadonlySet<number>>(new Set());
+-  protected readonly modalOpen = signal(false);
+   protected readonly toast = signal<string | null>(null);
+ 
+   protected readonly nome = signal('');
+@@ -68,6 +81,7 @@
+   protected readonly cep = signal('');
+   protected readonly errors = signal<Partial<Record<Field, string>>>({});
+   protected readonly formMessage = signal('');
++  protected readonly formMessageIsError = signal(false);
+   protected readonly orderNumber = signal<number | null>(null);
+ 
+   protected readonly cartCount = computed(() =>
+@@ -76,6 +90,10 @@
+   protected readonly cartTotal = computed(() =>
+     this.cart().reduce((total, item) => total + item.quantity * item.product.price, 0),
+   );
++  protected readonly cartLabel = computed(() => {
++    const count = this.cartCount();
++    return `Abrir carrinho, ${count} ${count === 1 ? 'item' : 'itens'}`;
++  });
+ 
+   private toastTimer?: ReturnType<typeof setTimeout>;
+ 
+@@ -94,6 +112,9 @@
+ 
+   protected removeFromCart(product: Product): void {
+     this.cart.update((items) => items.filter((item) => item.product.id !== product.id));
++    this.setFormMessage(`${product.name} removido do carrinho.`, false);
++    // O botão clicado deixa de existir: devolvemos o foco para um ponto previsível do diálogo.
++    this.focusAfterRender('#modal-title');
+   }
+ 
+   protected toggleFavorite(id: number): void {
+@@ -114,12 +135,26 @@
+ 
+   protected openModal(): void {
+     this.orderNumber.set(null);
+-    this.formMessage.set('');
+-    this.modalOpen.set(true);
++    this.setFormMessage('', false);
++    // showModal() move o foco para dentro, prende o Tab, torna o fundo inerte,
++    // fecha com Esc e devolve o foco ao botão que abriu.
++    this.dialog().nativeElement.showModal();
+   }
+ 
+   protected closeModal(): void {
+-    this.modalOpen.set(false);
++    this.dialog().nativeElement.close();
++  }
++
++  protected onDialogClosed(): void {
++    this.orderNumber.set(null);
++    this.setFormMessage('', false);
++  }
++
++  protected onDialogClick(event: MouseEvent): void {
++    // Clique no fundo escurecido (::backdrop) fecha o diálogo. Esc continua funcionando.
++    if (event.target === this.dialog().nativeElement) {
++      this.closeModal();
++    }
+   }
+ 
+   protected setField(field: Field, event: Event): void {
+@@ -142,20 +177,38 @@
+     }
+     this.errors.set(errors);
+ 
+-    const count = Object.keys(errors).length;
+-    if (count > 0) {
+-      this.formMessage.set(
++    const invalidFields = (Object.keys(errors) as Field[]);
++    if (invalidFields.length > 0) {
++      const count = invalidFields.length;
++      this.setFormMessage(
+         count === 1 ? 'Corrija 1 campo para continuar.' : `Corrija ${count} campos para continuar.`,
++        true,
+       );
++      // Leva o foco ao primeiro campo com erro; o leitor lê rótulo + mensagem (aria-describedby).
++      this.focusAfterRender(`#campo-${invalidFields[0]}`);
+       return;
+     }
+ 
+-    this.formMessage.set('');
++    this.setFormMessage('', false);
+     this.orderNumber.set(1000 + Math.floor(Math.random() * 9000));
+     this.cart.set([]);
+     this.nome.set('');
+     this.email.set('');
+     this.cep.set('');
++    // O botão "Finalizar compra" some da tela: o foco vai para a confirmação.
++    this.focusAfterRender('#confirmacao-titulo');
++  }
++
++  private setFormMessage(message: string, isError: boolean): void {
++    this.formMessage.set(message);
++    this.formMessageIsError.set(isError);
++  }
++
++  private focusAfterRender(selector: string): void {
++    afterNextRender(
++      () => this.host.nativeElement.querySelector<HTMLElement>(selector)?.focus(),
++      { injector: this.injector },
++    );
+   }
+ 
+   private showToast(message: string): void {

@@ -1,0 +1,171 @@
+<header class="site-header">
+  <div class="container header-inner">
+    <span class="brand">Loja Recife</span>
+    <button class="cart-button" type="button" aria-haspopup="dialog" [attr.aria-label]="cartLabel()" (click)="openModal()">
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="20" r="1.5" />
+        <circle cx="18" cy="20" r="1.5" />
+        <path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6" />
+      </svg>
+      <span class="cart-count" aria-hidden="true">{{ cartCount() }}</span>
+    </button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="intro">
+    <h1>Achados do Recife</h1>
+    <p>Pequenos objetos para o dia a dia. Entrega para todo o Brasil.</p>
+  </section>
+
+  <section>
+    <h2 class="section-title">Produtos</h2>
+    <ul class="product-grid">
+      @for (p of products; track p.id) {
+        <li class="card">
+          <div class="card-media">
+            <img [src]="p.image" [alt]="p.alt" width="400" height="300" />
+            <button
+              type="button"
+              class="fav"
+              [class.active]="isFavorite(p.id)"
+              [attr.aria-pressed]="isFavorite(p.id)"
+              [attr.aria-label]="'Favoritar ' + p.name"
+              (click)="toggleFavorite(p.id)"
+            >
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+                <path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5 6.5 5c2 0 3.5 1.1 5.5 3 2-1.9 3.5-3 5.5-3C21 5 22.8 8.6 21.5 11.8 19.5 16.4 12 21 12 21z" />
+              </svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <h3>{{ p.name }}</h3>
+            <p class="desc">{{ p.description }}</p>
+            <div class="card-footer">
+              <span class="price">{{ p.price | currency: 'BRL' }}</span>
+              <button type="button" class="btn-icon add" [attr.aria-label]="'Adicionar ' + p.name + ' ao carrinho'" (click)="addToCart(p)">
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="9" cy="20" r="1.5" />
+                  <circle cx="18" cy="20" r="1.5" />
+                  <path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6" />
+                  <path d="M13 9v5M10.5 11.5h5" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">Loja fictícia criada para o workshop de acessibilidade — DevFest Recife 2026.</div>
+</footer>
+
+<!-- A região existe desde o início; só o texto muda. É isso que faz o leitor de tela anunciar. -->
+<div class="toast-region" role="status" aria-live="polite" aria-atomic="true">
+  @if (toast()) {
+    <div class="toast">{{ toast() }}</div>
+  }
+</div>
+
+<dialog #dialog class="modal" aria-labelledby="modal-title" (close)="onDialogClosed()" (click)="onDialogClick($event)">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 id="modal-title" tabindex="-1">Seu carrinho</h2>
+      <button type="button" class="btn-icon" aria-label="Fechar carrinho" (click)="closeModal()">
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M5 5l14 14M19 5L5 19" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="form-message" [class.is-error]="formMessageIsError()" role="status">{{ formMessage() }}</div>
+
+    @if (orderNumber() !== null) {
+      <div class="confirmation">
+        <h3 id="confirmacao-titulo" tabindex="-1">Pedido #{{ orderNumber() }} confirmado!</h3>
+        <p>Enviamos os detalhes da compra para o seu e-mail.</p>
+        <button type="button" class="btn-primary" (click)="closeModal()">Continuar comprando</button>
+      </div>
+    } @else if (cart().length === 0) {
+      <p class="empty">Seu carrinho está vazio.</p>
+    } @else {
+      <ul class="cart-list">
+        @for (item of cart(); track item.product.id) {
+          <li class="cart-item">
+            <img [src]="item.product.image" alt="" width="56" height="42" />
+            <div class="cart-item-info">
+              <strong>{{ item.product.name }}</strong>
+              <span>{{ item.quantity }} × {{ item.product.price | currency: 'BRL' }}</span>
+            </div>
+            <button type="button" class="btn-icon" [attr.aria-label]="'Remover ' + item.product.name + ' do carrinho'" (click)="removeFromCart(item.product)">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3" />
+              </svg>
+            </button>
+          </li>
+        }
+      </ul>
+      <p class="total">Total: <strong>{{ cartTotal() | currency: 'BRL' }}</strong></p>
+
+      <form class="checkout" (submit)="submit($event)" novalidate>
+        <h3>Dados para entrega</h3>
+
+        <div class="field">
+          <label for="campo-nome" class="field-label">Nome completo</label>
+          <input
+            id="campo-nome"
+            type="text"
+            autocomplete="name"
+            placeholder="Ex.: Maria Silva"
+            required
+            [value]="nome()"
+            (input)="setField('nome', $event)"
+            [class.invalid]="errors().nome"
+            [attr.aria-invalid]="errors().nome ? 'true' : null"
+            [attr.aria-describedby]="errors().nome ? 'erro-nome' : null"
+          />
+          @if (errors().nome) { <span id="erro-nome" class="error">{{ errors().nome }}</span> }
+        </div>
+
+        <div class="field">
+          <label for="campo-email" class="field-label">E-mail</label>
+          <input
+            id="campo-email"
+            type="email"
+            autocomplete="email"
+            required
+            [value]="email()"
+            (input)="setField('email', $event)"
+            [class.invalid]="errors().email"
+            [attr.aria-invalid]="errors().email ? 'true' : null"
+            [attr.aria-describedby]="errors().email ? 'erro-email' : null"
+          />
+          @if (errors().email) { <span id="erro-email" class="error">{{ errors().email }}</span> }
+        </div>
+
+        <div class="field">
+          <label for="campo-cep" class="field-label">CEP</label>
+          <input
+            id="campo-cep"
+            type="text"
+            inputmode="numeric"
+            autocomplete="postal-code"
+            placeholder="00000-000"
+            required
+            [value]="cep()"
+            (input)="setField('cep', $event)"
+            [class.invalid]="errors().cep"
+            [attr.aria-invalid]="errors().cep ? 'true' : null"
+            [attr.aria-describedby]="errors().cep ? 'erro-cep' : null"
+          />
+          @if (errors().cep) { <span id="erro-cep" class="error">{{ errors().cep }}</span> }
+        </div>
+
+        <button type="submit" class="btn-primary">Finalizar compra</button>
+      </form>
+    }
+  </div>
+</dialog>
