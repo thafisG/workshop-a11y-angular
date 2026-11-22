@@ -7,7 +7,6 @@ Deck de 11 slides (abertura e encerramento) criado no Claude como artefato de sl
 Antes de apresentar, troque os textos entre colchetes pelos seus dados:
 
 - URL do repositório: já preenchida (`https://github.com/thafisG/workshop-a11y-angular`)
-- `[Link do quadro]` (slide "Tudo o que você precisa")
 - `[Seu nome e contato]` (último slide)
 
 Ordem: capa · Funciona, mas para quem? · A dinâmica · Cronograma · Como priorizar · NVDA em sete comandos · Tudo o que você precisa (com QR do repositório e do quadro) · O mesmo botão, duas experiências · O que checar no próximo PR · Mensagem central · Encerramento.
