@@ -45,7 +45,7 @@ export class App {
       name: 'Mochila Urbana Capibaribe',
       description: 'Resistente à água, com compartimento para notebook.',
       price: 249.9,
-      image: 'img/mochila.svg',
+      image: 'img/mochila-baixa.png',
       alt: 'imagem',
     },
     {

@@ -17,7 +17,7 @@
 /* Conteúdo */
 .intro { padding: 36px 0 12px; }
 .intro h1 { margin: 0 0 6px; font-size: 2rem; }
-.intro p { margin: 0; color: var(--muted); }
+.intro p { margin: 0; color: #c9c4bb; }
 .section-title { margin: 28px 0 14px; font-size: 1.25rem; }
 
 .product-grid { list-style: none; margin: 0 0 48px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
@@ -25,13 +25,13 @@
 .card-media { position: relative; }
 .card-media img { display: block; width: 100%; height: auto; }
 .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; flex: 1; }
-.card-body h3 { margin: 0 0 4px; font-size: 1.05rem; }
-.desc { margin: 0 0 14px; color: var(--muted); font-size: .92rem; flex: 1; }
+.card-title { margin: 0 0 4px; font-size: 1.05rem; font-weight: 700; }
+.desc { margin: 0 0 14px; color: #b9b3aa; font-size: 11px; flex: 1; }
 .card-footer { display: flex; align-items: center; justify-content: space-between; }
-.price { font-weight: 800; font-size: 1.1rem; }
+.price { font-weight: 800; font-size: 12px; }
 
 .fav {
-  position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%;
+  position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%;
   background: rgba(255, 255, 255, .92); display: grid; place-items: center; cursor: pointer; color: #6b6470;
 }
 .fav svg { fill: none; }
@@ -55,7 +55,7 @@
 .btn-primary:hover { background: var(--primary-dark); }
 
 /* Rodapé */
-.site-footer { border-top: 1px solid var(--border); padding: 22px 0; color: var(--muted); font-size: .9rem; }
+.site-footer { border-top: 1px solid var(--border); padding: 22px 0; color: #c2bcb3; font-size: 10px; }
 
 /* Toast */
 .toast {
@@ -89,3 +89,7 @@
 .confirmation { text-align: center; padding: 18px 0 6px; }
 .confirmation h3 { color: var(--success); margin: 0 0 6px; font-size: 1.3rem; }
 .confirmation p { color: var(--muted); }
+
+/* Banner promocional */
+.promo { display: block; width: 100%; height: auto; margin: 8px 0 0; border-radius: var(--radius); }
+.cart-item .btn-icon { width: 22px; height: 22px; }

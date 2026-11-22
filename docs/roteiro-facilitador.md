@@ -25,11 +25,11 @@ Seis fases em 50 minutos é apertado, principalmente **32–45 min** (corrigir c
 
 ### 0–5 min · Abertura
 
-- Mostre `start` no navegador, usando o mouse. "Funciona, é bonita, vende." (1 min)
+- Mostre `start` no navegador, usando o mouse. "Funciona e vende." Pergunte à sala se já dá para notar algo estranho: a foto borrada, o texto pequeno e claro demais (problemas 7 a 9 do `gabarito.md`). (1 min)
 - Mostre a mesma tela **com o NVDA e sem olhar**: tab no cabeçalho, `B` pelos botões. Deixe o silêncio e os "botão, botão, botão" falarem. (2 min)
 - Explique a dinâmica: explorar → registrar → priorizar → corrigir. Mostre o link do FigJam. (2 min)
 
-**Fala sugerida:** "Nada aqui quebra. O código passa no build, a tela está bonita. O problema só aparece quando mudamos a forma de usar."
+**Fala sugerida:** "O código passa no build e a loja vende. Alguns problemas dá para ver a olho; outros só aparecem quando mudamos a forma de usar."
 
 ### 5–15 min · Exploração (duplas)
 

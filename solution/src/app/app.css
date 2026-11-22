@@ -96,3 +96,6 @@
 /* Foco sempre visível para quem navega pelo teclado */
 :focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
 .btn-icon.add:focus-visible, .btn-primary:focus-visible { outline-color: #0b57d0; box-shadow: 0 0 0 2px #fff; }
+
+/* Banner promocional */
+.promo { display: block; width: 100%; height: auto; margin: 8px 0 0; border-radius: var(--radius); }

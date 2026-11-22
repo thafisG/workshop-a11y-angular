@@ -16,6 +16,30 @@
 
 Escopo do workshop: **1 a 5**. O 6 é bônus para quem terminar cedo.
 
+### Problemas "fáceis de notar" (7 a 12)
+
+Estes aparecem para **qualquer pessoa**, mesmo sem leitor de tela: servem de aquecimento e para a turma perceber que acessibilidade não é só ARIA. Peça para olharem a loja com atenção antes de ligar o NVDA.
+
+| # | Problema | Onde | Impacto sugerido | Critério WCAG |
+|---|---|---|---|---|
+| 7 | Imagem borrada (baixa resolução esticada) | Foto da mochila (`img/mochila-baixa.png`, 48×36 px exibida em ~400 px) | **Baixo** a **Médio** | Boa prática (qualidade e clareza da imagem) |
+| 8 | Texto minúsculo | Descrição (11 px), preço (12 px) e rodapé (10 px) | **Alto** | 1.4.4 Redimensionar texto (AA); legibilidade |
+| 9 | Contraste baixo | Subtítulo, descrições e rodapé em cinza muito claro | **Alto** | 1.4.3 Contraste mínimo (AA) |
+| 10 | Informação só na imagem | Banner "FRETE GRÁTIS acima de R$ 200" com `alt=""` | **Médio** | 1.1.1 Conteúdo não textual (A), 1.4.5 Imagens de texto (AA) |
+| 11 | Sem títulos para navegar | Nomes dos produtos e "Produtos" são `<div>`, não títulos | **Médio** | 1.3.1 Informação e relações (A), 2.4.6 |
+| 12 | Idioma, título da página e zoom | `<html lang="en">`, `<title>Angular App</title>`, `user-scalable=no` | **Médio** a **Alto** | 3.1.1 Idioma da página (A), 2.4.2 Título da página (A), 1.4.4 (AA) |
+| 13 | Alvos de toque pequenos | Coração (28 px) e lixeira do carrinho (22 px) | **Baixo** a **Médio** | 2.5.8 Tamanho do alvo (AA) |
+
+Como encontrar cada um:
+- **7, 8, 9, 10:** a olho. Dê zoom de 200% (Ctrl e +) e compare com a versão corrigida.
+- **8 e 9:** DevTools → Elements, clique no texto e veja o *Contrast* no painel Styles; ou a aba Lighthouse.
+- **10:** o NVDA lê "gráfico" ou nada; quem não enxerga perde a promoção (e o prazo "só até domingo").
+- **11:** no NVDA, tecla `H` e `NVDA + F7` (lista de títulos): só aparece "Achados do Recife".
+- **12:** o NVDA com troca automática de idioma lê o português com sotaque de inglês; a aba do navegador mostra o título genérico; no celular não dá para dar zoom.
+- **13:** teste no celular ou com o DevTools em modo toque.
+
+Correções (já feitas em `solution/`): trocar a imagem pelo SVG nítido; `font-size` ≥ 16 px (usar `rem`); cores com contraste ≥ 4,5:1; `alt` com o texto do banner; `<h2>`/`<h3>` nos títulos; `lang="pt-BR"`, título descritivo e viewport sem bloqueio de zoom; alvos de pelo menos 44 px (mínimo de 24 px).
+
 ---
 
 ## 1. Botão sem nome acessível
@@ -142,4 +166,4 @@ Pontos de atenção (bons para a discussão final):
 
 ## O que já está certo em `start` (de propósito)
 
-`lang="pt-BR"`, `<title>`, landmarks (`header`/`main`/`footer`), hierarquia de títulos, listas semânticas e contraste dos textos. Assim os problemas aparecem isolados e a turma não se perde.
+Landmarks (`header`/`main`/`footer`), `<h1>`, listas semânticas, contraste do texto dos botões e do título principal, e a lógica do carrinho. Os problemas 1 a 13 aparecem sobre uma base que funciona, o que mantém a investigação clara.

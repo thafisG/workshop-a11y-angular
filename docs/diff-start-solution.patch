@@ -1,21 +1,4 @@
-diff -ruN '--exclude=README.md' start/package-lock.json solution/package-lock.json
---- start/package-lock.json	2026-11-21 22:25:26.710745912 -0300
-+++ solution/package-lock.json	2026-11-21 22:32:59.389002076 -0300
-@@ -1,11 +1,11 @@
- {
--  "name": "loja-acessivel",
-+  "name": "loja-acessivel-solution",
-   "version": "0.0.0",
-   "lockfileVersion": 3,
-   "requires": true,
-   "packages": {
-     "": {
--      "name": "loja-acessivel",
-+      "name": "loja-acessivel-solution",
-       "version": "0.0.0",
-       "dependencies": {
-         "@angular/common": "^22.3.0",
-diff -ruN '--exclude=README.md' start/package.json solution/package.json
+diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/package.json solution/package.json
 --- start/package.json	2026-11-21 22:24:57.636352197 -0300
 +++ solution/package.json	2026-11-21 22:27:09.111754687 -0300
 @@ -1,5 +1,5 @@
@@ -25,9 +8,10 @@ diff -ruN '--exclude=README.md' start/package.json solution/package.json
    "version": "0.0.0",
    "scripts": {
      "ng": "ng",
-diff -ruN '--exclude=README.md' start/src/app/app.css solution/src/app/app.css
---- start/src/app/app.css	2026-11-21 22:27:01.394668939 -0300
-+++ solution/src/app/app.css	2026-11-21 22:28:08.247264230 -0300
+Binary files start/public/img/mochila-baixa.png and solution/public/img/mochila-baixa.png differ
+diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/app/app.css solution/src/app/app.css
+--- start/src/app/app.css	2026-11-22 20:31:53.145988843 -0300
++++ solution/src/app/app.css	2026-11-22 20:32:15.636432459 -0300
 @@ -9,7 +9,6 @@
    display: inline-flex; align-items: center; gap: 8px;
    background: transparent; border: 1px solid var(--border); border-radius: 999px;
@@ -36,11 +20,29 @@ diff -ruN '--exclude=README.md' start/src/app/app.css solution/src/app/app.css
  }
  .cart-button:hover { background: #f0ebe3; }
  .cart-count { background: var(--accent); color: #fff; border-radius: 999px; min-width: 24px; padding: 0 7px; font-weight: 700; font-size: .85rem; text-align: center; }
-@@ -31,8 +30,8 @@
- .price { font-weight: 800; font-size: 1.1rem; }
+@@ -17,7 +16,7 @@
+ /* Conteúdo */
+ .intro { padding: 36px 0 12px; }
+ .intro h1 { margin: 0 0 6px; font-size: 2rem; }
+-.intro p { margin: 0; color: #c9c4bb; }
++.intro p { margin: 0; color: var(--muted); }
+ .section-title { margin: 28px 0 14px; font-size: 1.25rem; }
+ 
+ .product-grid { list-style: none; margin: 0 0 48px; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
+@@ -25,14 +24,14 @@
+ .card-media { position: relative; }
+ .card-media img { display: block; width: 100%; height: auto; }
+ .card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; flex: 1; }
+-.card-title { margin: 0 0 4px; font-size: 1.05rem; font-weight: 700; }
+-.desc { margin: 0 0 14px; color: #b9b3aa; font-size: 11px; flex: 1; }
++.card-body h3 { margin: 0 0 4px; font-size: 1.05rem; }
++.desc { margin: 0 0 14px; color: var(--muted); font-size: .92rem; flex: 1; }
+ .card-footer { display: flex; align-items: center; justify-content: space-between; }
+-.price { font-weight: 800; font-size: 12px; }
++.price { font-weight: 800; font-size: 1.1rem; }
  
  .fav {
--  position: absolute; top: 10px; right: 10px; width: 40px; height: 40px; border-radius: 50%;
+-  position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%;
 -  background: rgba(255, 255, 255, .92); display: grid; place-items: center; cursor: pointer; color: #6b6470;
 +  position: absolute; top: 10px; right: 10px; width: 44px; height: 44px; border-radius: 50%; border: 0;
 +  background: rgba(255, 255, 255, .92); display: grid; place-items: center; cursor: pointer; color: #6b6470; padding: 0;
@@ -55,7 +57,7 @@ diff -ruN '--exclude=README.md' start/src/app/app.css solution/src/app/app.css
  }
  .btn-icon:hover { background: #f0ebe3; }
  .btn-icon.add { background: var(--primary); border-color: var(--primary); color: #fff; }
-@@ -50,7 +48,7 @@
+@@ -50,24 +48,26 @@
  
  .btn-primary {
    background: var(--primary); color: #fff; border: 0; border-radius: 10px; padding: 12px 18px;
@@ -64,8 +66,9 @@ diff -ruN '--exclude=README.md' start/src/app/app.css solution/src/app/app.css
  }
  .btn-primary:hover { background: var(--primary-dark); }
  
-@@ -58,16 +56,18 @@
- .site-footer { border-top: 1px solid var(--border); padding: 22px 0; color: var(--muted); font-size: .9rem; }
+ /* Rodapé */
+-.site-footer { border-top: 1px solid var(--border); padding: 22px 0; color: #c2bcb3; font-size: 10px; }
++.site-footer { border-top: 1px solid var(--border); padding: 22px 0; color: var(--muted); font-size: .9rem; }
  
  /* Toast */
 +.toast-region { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 30; }
@@ -87,7 +90,7 @@ diff -ruN '--exclude=README.md' start/src/app/app.css solution/src/app/app.css
  
  .empty { color: var(--muted); }
  .cart-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-@@ -81,11 +81,18 @@
+@@ -81,15 +81,21 @@
  .checkout h3 { margin: 0; font-size: 1.05rem; }
  .field { display: flex; flex-direction: column; gap: 4px; }
  .field-label { font-weight: 600; font-size: .92rem; }
@@ -104,13 +107,17 @@ diff -ruN '--exclude=README.md' start/src/app/app.css solution/src/app/app.css
 +.confirmation h3:focus { outline: none; }
  .confirmation h3 { color: var(--success); margin: 0 0 6px; font-size: 1.3rem; }
  .confirmation p { color: var(--muted); }
-+
+ 
 +/* Foco sempre visível para quem navega pelo teclado */
 +:focus-visible { outline: 3px solid #0b57d0; outline-offset: 2px; }
 +.btn-icon.add:focus-visible, .btn-primary:focus-visible { outline-color: #0b57d0; box-shadow: 0 0 0 2px #fff; }
-diff -ruN '--exclude=README.md' start/src/app/app.html solution/src/app/app.html
---- start/src/app/app.html	2026-11-21 22:27:47.534431677 -0300
-+++ solution/src/app/app.html	2026-11-21 22:28:08.219959467 -0300
++
+ /* Banner promocional */
+ .promo { display: block; width: 100%; height: auto; margin: 8px 0 0; border-radius: var(--radius); }
+-.cart-item .btn-icon { width: 22px; height: 22px; }
+diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/app/app.html solution/src/app/app.html
+--- start/src/app/app.html	2026-11-22 20:31:53.145279652 -0300
++++ solution/src/app/app.html	2026-11-22 20:32:15.636165159 -0300
 @@ -1,13 +1,13 @@
  <header class="site-header">
    <div class="container header-inner">
@@ -128,7 +135,17 @@ diff -ruN '--exclude=README.md' start/src/app/app.html solution/src/app/app.html
      </button>
    </div>
  </header>
-@@ -24,20 +24,27 @@
+@@ -18,28 +18,35 @@
+     <p>Pequenos objetos para o dia a dia. Entrega para todo o Brasil.</p>
+   </section>
+ 
+-  <img class="promo" src="img/frete.svg" alt="" width="1000" height="160" />
++  <img class="promo" src="img/frete.svg" alt="Frete grátis em compras acima de R$ 200, só até domingo" width="1000" height="160" />
+ 
+   <section>
+-    <div class="section-title">Produtos</div>
++    <h2 class="section-title">Produtos</h2>
+     <ul class="product-grid">
        @for (p of products; track p.id) {
          <li class="card">
            <div class="card-media">
@@ -151,7 +168,8 @@ diff -ruN '--exclude=README.md' start/src/app/app.html solution/src/app/app.html
 +            </button>
            </div>
            <div class="card-body">
-             <h3>{{ p.name }}</h3>
+-            <div class="card-title">{{ p.name }}</div>
++            <h3>{{ p.name }}</h3>
              <p class="desc">{{ p.description }}</p>
              <div class="card-footer">
                <span class="price">{{ p.price | currency: 'BRL' }}</span>
@@ -162,7 +180,7 @@ diff -ruN '--exclude=README.md' start/src/app/app.html solution/src/app/app.html
                    <circle cx="9" cy="20" r="1.5" />
                    <circle cx="18" cy="20" r="1.5" />
                    <path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.5L21 7H6" />
-@@ -56,76 +63,109 @@
+@@ -58,76 +65,109 @@
    <div class="container">Loja fictícia criada para o workshop de acessibilidade — DevFest Recife 2026.</div>
  </footer>
  
@@ -338,8 +356,8 @@ diff -ruN '--exclude=README.md' start/src/app/app.html solution/src/app/app.html
    </div>
 -}
 +</dialog>
-diff -ruN '--exclude=README.md' start/src/app/app.ts solution/src/app/app.ts
---- start/src/app/app.ts	2026-11-21 22:26:35.963062062 -0300
+diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/app/app.ts solution/src/app/app.ts
+--- start/src/app/app.ts	2026-11-22 20:31:53.144886562 -0300
 +++ solution/src/app/app.ts	2026-11-21 22:27:47.541538555 -0300
 @@ -1,5 +1,14 @@
  import { CurrencyPipe } from '@angular/common';
@@ -385,7 +403,7 @@ diff -ruN '--exclude=README.md' start/src/app/app.ts solution/src/app/app.ts
      },
      {
        id: 2,
-@@ -38,7 +52,7 @@
+@@ -38,15 +52,15 @@
        description: 'Bluetooth com até 30 horas de bateria.',
        price: 189,
        image: 'img/fone.svg',
@@ -394,11 +412,12 @@ diff -ruN '--exclude=README.md' start/src/app/app.ts solution/src/app/app.ts
      },
      {
        id: 3,
-@@ -46,7 +60,7 @@
+       name: 'Mochila Urbana Capibaribe',
        description: 'Resistente à água, com compartimento para notebook.',
        price: 249.9,
-       image: 'img/mochila.svg',
+-      image: 'img/mochila-baixa.png',
 -      alt: 'imagem',
++      image: 'img/mochila.svg',
 +      alt: 'Mochila verde com bolso frontal e fecho amarelo',
      },
      {
@@ -513,3 +532,20 @@ diff -ruN '--exclude=README.md' start/src/app/app.ts solution/src/app/app.ts
    }
  
    private showToast(message: string): void {
+diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/index.html solution/src/index.html
+--- start/src/index.html	2026-11-22 20:31:53.144623910 -0300
++++ solution/src/index.html	2026-11-21 22:26:35.000000000 -0300
+@@ -1,10 +1,10 @@
+ <!doctype html>
+-<html lang="en">
++<html lang="pt-BR">
+ <head>
+   <meta charset="utf-8">
+-  <title>Angular App</title>
++  <title>Loja Recife — Workshop de Acessibilidade</title>
+   <base href="/">
+-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
++  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="icon" type="image/x-icon" href="favicon.ico">
+ </head>
+ <body>

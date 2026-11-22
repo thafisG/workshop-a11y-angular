@@ -18,8 +18,10 @@
     <p>Pequenos objetos para o dia a dia. Entrega para todo o Brasil.</p>
   </section>
 
+  <img class="promo" src="img/frete.svg" alt="" width="1000" height="160" />
+
   <section>
-    <h2 class="section-title">Produtos</h2>
+    <div class="section-title">Produtos</div>
     <ul class="product-grid">
       @for (p of products; track p.id) {
         <li class="card">
@@ -32,7 +34,7 @@
             </div>
           </div>
           <div class="card-body">
-            <h3>{{ p.name }}</h3>
+            <div class="card-title">{{ p.name }}</div>
             <p class="desc">{{ p.description }}</p>
             <div class="card-footer">
               <span class="price">{{ p.price | currency: 'BRL' }}</span>

@@ -1,6 +1,6 @@
 # Workshop DevFest Recife 2026 — Tornando acessível um app Angular com leitor de tela
 
-Workshop prático de 50 minutos. Os participantes exploram uma loja virtual Angular com **problemas de acessibilidade intencionais**, registram o que encontram no FigJam, priorizam por impacto e corrigem parte deles no código.
+Workshop prático de 50 minutos. Os participantes exploram uma loja virtual Angular com **problemas de acessibilidade intencionais** (visuais, como imagem borrada e texto pequeno, e de leitor de tela e teclado), registram o que encontram no FigJam, priorizam por impacto e corrigem parte deles no código.
 
 ## O que tem aqui
 
@@ -10,7 +10,7 @@ Workshop prático de 50 minutos. Os participantes exploram uma loja virtual Angu
 | `solution/` | Mesma app **corrigida**, para consulta e para o facilitador. |
 | `docs/guia-nvda.md` | Guia básico de NVDA para quem nunca usou. |
 | `docs/roteiro-facilitador.md` | Roteiro minuto a minuto, falas, dicas e plano B. |
-| `docs/gabarito.md` | Os 6 problemas: onde estão, o que o NVDA diz, correção, critério WCAG. |
+| `docs/gabarito.md` | Os 13 problemas: onde estão, o que o NVDA diz, correção, critério WCAG. |
 | `docs/figjam-board.md` | Estrutura do quadro *Accessibility Audit Board* e como duplicá-lo. |
 | `docs/diff-start-solution.patch` | Diferença completa entre `start` e `solution`. |
 | `slides/` | Slides de abertura e encerramento. |
@@ -52,7 +52,7 @@ Cada versão tem só três arquivos que importam: `src/app/app.ts`, `src/app/app
 
 ## Verificação feita na preparação
 
-As duas versões compilam (`ng build`) e foram exercitadas no Chrome com o axe-core e com testes de teclado: em `start` o axe aponta `button-name`, `image-alt` e `label`, e o foco/anúncio falham como esperado; em `solution` o axe não aponta violações WCAG A/AA e o foco, o Esc e os avisos funcionam. **Não foi possível testar com NVDA real**: faça o ensaio completo em uma máquina Windows antes do evento.
+As duas versões compilam (`ng build`) e foram exercitadas no Chrome com o axe-core e com testes de teclado: em `start` o axe aponta `button-name`, `image-alt`, `label`, `color-contrast` e `meta-viewport`, e o foco/anúncio falham como esperado; em `solution` o axe não aponta violações WCAG A/AA e o foco, o Esc e os avisos funcionam. **Não foi possível testar com NVDA real**: faça o ensaio completo em uma máquina Windows antes do evento.
 
 ## Publicação (Vercel)
 
