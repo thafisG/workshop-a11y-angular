@@ -28,7 +28,7 @@ Quadro pronto: <https://www.figma.com/board/wI6THeYn53CYv97TdUYd8C>. Duplique o 
 - Projeto baixado e dependências instaladas:
 
 ```bash
-git clone <URL-DO-REPOSITORIO>
+git clone https://github.com/thafisG/workshop-a11y-angular
 cd workshop-a11y-angular/start
 npm install
 ```
@@ -53,3 +53,7 @@ Cada versão tem só três arquivos que importam: `src/app/app.ts`, `src/app/app
 ## Verificação feita na preparação
 
 As duas versões compilam (`ng build`) e foram exercitadas no Chrome com o axe-core e com testes de teclado: em `start` o axe aponta `button-name`, `image-alt` e `label`, e o foco/anúncio falham como esperado; em `solution` o axe não aponta violações WCAG A/AA e o foco, o Esc e os avisos funcionam. **Não foi possível testar com NVDA real**: faça o ensaio completo em uma máquina Windows antes do evento.
+
+## Publicação (Vercel)
+
+O `vercel.json` na raiz publica as duas versões a partir deste repositório: a loja com problemas (`start`) na raiz do site e a corrigida (`solution`) em `/solution/`. É a rede de segurança do workshop: quem não conseguir rodar o projeto localmente pode explorar a versão publicada. O build fica em `vercel-build.sh`.

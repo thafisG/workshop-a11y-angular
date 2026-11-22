@@ -6,7 +6,7 @@ Deck de 10 slides (abertura e encerramento) criado no Claude como artefato de sl
 
 Antes de apresentar, troque os textos entre colchetes pelos seus dados:
 
-- `[URL do repositório no GitHub]` (slides "Tudo o que você precisa" e último)
+- URL do repositório: já preenchida (`https://github.com/thafisG/workshop-a11y-angular`)
 - `[Link do quadro]` (slide "Tudo o que você precisa")
 - `[Seu nome e contato]` (último slide)
 
