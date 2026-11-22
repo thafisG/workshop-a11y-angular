@@ -1,5 +1,7 @@
 # Slides
 
+Arquivo `workshop-a11y-angular-slides.pptx` (PowerPoint, 10 slides com notas do orador). Para editar no Canva: Criar um design → Importar arquivo → escolha o .pptx.
+
 Deck de 10 slides (abertura e encerramento) criado no Claude como artefato de slides, com notas do orador em cada slide. No artefato é possível editar, apresentar e baixar em PowerPoint ou PDF.
 
 Antes de apresentar, troque os textos entre colchetes pelos seus dados:
