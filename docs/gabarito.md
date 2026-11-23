@@ -1,6 +1,7 @@
 # Gabarito — problemas intencionais
 
-> Uso exclusivo do facilitador. Os trechos de código estão em `start/src/app/` (`app.html`, `app.ts`, `app.css`); a correção completa está em `solution/` e em `diff-start-solution.patch`.
+> Para o facilitador **e para quem faz a lição de casa depois do workshop** (abrir o gabarito antes de tentar tira a graça). Os slides seguem a ordem das 8 etapas descritas no README.
+> Os trechos de código estão em `start/src/app/` (`app.html`, `app.ts`, `app.css`); a correção completa está em `solution/` e em `diff-start-solution.patch`.
 > A coluna "Impacto sugerido" é um ponto de partida para a discussão: a graça do exercício é o grupo defender a própria classificação com base no contexto, não acertar a minha.
 
 ## Visão geral

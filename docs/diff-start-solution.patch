@@ -1,4 +1,33 @@
-diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/package.json solution/package.json
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' start/README.md solution/README.md
+--- start/README.md	2026-11-21 22:32:59.385415026 -0300
++++ solution/README.md	2026-11-21 22:32:59.387350744 -0300
+@@ -1,6 +1,6 @@
+-# Loja Recife (start)
++# Loja Recife (solution)
+ 
+-App Angular do workshop de acessibilidade. Esta versão contém problemas de acessibilidade **intencionais**: investigue, registre e corrija.
++App Angular do workshop de acessibilidade. Esta é a versão **corrigida**, só para consulta.
+ 
+ ```bash
+ npm install
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' start/package-lock.json solution/package-lock.json
+--- start/package-lock.json	2026-11-21 22:25:26.710745912 -0300
++++ solution/package-lock.json	2026-11-21 22:32:59.389002076 -0300
+@@ -1,11 +1,11 @@
+ {
+-  "name": "loja-acessivel",
++  "name": "loja-acessivel-solution",
+   "version": "0.0.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+-      "name": "loja-acessivel",
++      "name": "loja-acessivel-solution",
+       "version": "0.0.0",
+       "dependencies": {
+         "@angular/common": "^22.3.0",
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' start/package.json solution/package.json
 --- start/package.json	2026-11-21 22:24:57.636352197 -0300
 +++ solution/package.json	2026-11-21 22:27:09.111754687 -0300
 @@ -1,5 +1,5 @@
@@ -9,9 +38,9 @@ diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exc
    "scripts": {
      "ng": "ng",
 Binary files start/public/img/mochila-baixa.png and solution/public/img/mochila-baixa.png differ
-diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/app/app.css solution/src/app/app.css
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' start/src/app/app.css solution/src/app/app.css
 --- start/src/app/app.css	2026-11-22 20:31:53.145988843 -0300
-+++ solution/src/app/app.css	2026-11-22 20:32:15.636432459 -0300
++++ solution/src/app/app.css	2026-11-23 16:53:40.933100882 -0300
 @@ -9,7 +9,6 @@
    display: inline-flex; align-items: center; gap: 8px;
    background: transparent; border: 1px solid var(--border); border-radius: 999px;
@@ -36,7 +65,7 @@ diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exc
 -.card-title { margin: 0 0 4px; font-size: 1.05rem; font-weight: 700; }
 -.desc { margin: 0 0 14px; color: #b9b3aa; font-size: 11px; flex: 1; }
 +.card-body h3 { margin: 0 0 4px; font-size: 1.05rem; }
-+.desc { margin: 0 0 14px; color: var(--muted); font-size: .92rem; flex: 1; }
++.desc { margin: 0 0 14px; color: var(--muted); font-size: 1rem; flex: 1; }
  .card-footer { display: flex; align-items: center; justify-content: space-between; }
 -.price { font-weight: 800; font-size: 12px; }
 +.price { font-weight: 800; font-size: 1.1rem; }
@@ -115,7 +144,7 @@ diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exc
  /* Banner promocional */
  .promo { display: block; width: 100%; height: auto; margin: 8px 0 0; border-radius: var(--radius); }
 -.cart-item .btn-icon { width: 22px; height: 22px; }
-diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/app/app.html solution/src/app/app.html
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' start/src/app/app.html solution/src/app/app.html
 --- start/src/app/app.html	2026-11-22 20:31:53.145279652 -0300
 +++ solution/src/app/app.html	2026-11-22 20:32:15.636165159 -0300
 @@ -1,13 +1,13 @@
@@ -356,7 +385,7 @@ diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exc
    </div>
 -}
 +</dialog>
-diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/app/app.ts solution/src/app/app.ts
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' start/src/app/app.ts solution/src/app/app.ts
 --- start/src/app/app.ts	2026-11-22 20:31:53.144886562 -0300
 +++ solution/src/app/app.ts	2026-11-21 22:27:47.541538555 -0300
 @@ -1,5 +1,14 @@
@@ -532,7 +561,7 @@ diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exc
    }
  
    private showToast(message: string): void {
-diff -ruN '--exclude=README.md' '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' '--exclude=package-lock.json' start/src/index.html solution/src/index.html
+diff -ruN '--exclude=node_modules' '--exclude=dist' '--exclude=.angular' start/src/index.html solution/src/index.html
 --- start/src/index.html	2026-11-22 20:31:53.144623910 -0300
 +++ solution/src/index.html	2026-11-21 22:26:35.000000000 -0300
 @@ -1,10 +1,10 @@

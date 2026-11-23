@@ -1,6 +1,6 @@
 # Quadro FigJam — Accessibility Audit Board
 
-> **Quadro já criado:** <https://www.figma.com/board/wI6THeYn53CYv97TdUYd8C> (seis seções: Problemas, Crítico, Alto, Médio, Baixo, Soluções; 12 cartões-modelo amarelos e 6 azuis). Abaixo está a especificação, útil para recriar o quadro ou adaptá-lo.
+> **Quadro já criado e preenchido (exemplo do workshop):** <https://www.figma.com/board/wI6THeYn53CYv97TdUYd8C> (seis seções: Problemas, Crítico, Alto, Médio, Baixo, Soluções; 12 cartões-modelo amarelos e 6 azuis). Abaixo está a especificação, útil para recriar o quadro ou adaptá-lo.
 
 Montagem estimada: **15 a 20 minutos**. O quadro deve estar pronto, com áreas e cartões vazios, antes do evento.
 
