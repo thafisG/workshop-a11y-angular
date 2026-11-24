@@ -76,3 +76,6 @@ As duas versões compilam (`ng build`) e foram exercitadas no Chrome com o axe-c
 ## Publicação (Vercel)
 
 O `vercel.json` na raiz publica as duas versões a partir deste repositório: a loja com problemas (`start`) na raiz do site e a corrigida (`solution`) em `/solution/`. É a rede de segurança do workshop: quem não conseguir rodar o projeto localmente pode explorar a versão publicada. O build fica em `vercel-build.sh`.
+
+- Loja com problemas: https://workshop-a11y-angular.vercel.app/
+- Loja corrigida: https://workshop-a11y-angular.vercel.app/solution/
